@@ -145,7 +145,8 @@ mkdir -p $BUILD_DIR/.apt
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   if [[ ${DEB} == *"chrome-stable"* ]]; then
-    mkdir -p $BUILD_DIR/.apt/usr/bin/google-chrome-stable
+    mkdir -p $BUILD_DIR/.apt/usr/bin
+    echo "placeholder" >> $BUILD_DIR/.apt/usr/bin/google-chrome-stable
     topic "* Skipping $(basename $DEB) because we already are installing specific version"
   else
     topic "Installing $(basename $DEB)"
