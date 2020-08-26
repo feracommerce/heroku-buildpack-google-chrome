@@ -114,6 +114,8 @@ else
   download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
 fi
 
+topic "Chrome download will come from: ${CHROME_DOWNLOAD_URL}"
+
 PACKAGES="$PACKAGES ${download_url}"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
