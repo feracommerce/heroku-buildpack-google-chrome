@@ -108,13 +108,14 @@ fi
 
 topic "Installing Google Chrome from the $channel channel."
 
-if [ $CHROME_DOWNLOAD_URL ]; then
-  download_url=$CHROME_DOWNLOAD_URL
+# Detect requested channel or default to stable
+if [ -f $ENV_DIR/CHROME_DOWNLOAD_URL ]; then
+  download_url=$(cat $ENV_DIR/CHROME_DOWNLOAD_URL)
 else
   download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
 fi
 
-topic "Chrome download will come from: ${CHROME_DOWNLOAD_URL}"
+topic "Chrome download will come from: ${download_url}"
 
 PACKAGES="$PACKAGES ${download_url}"
 
