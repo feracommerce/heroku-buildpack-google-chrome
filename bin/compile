@@ -108,7 +108,13 @@ fi
 
 topic "Installing Google Chrome from the $channel channel."
 
-PACKAGES="$PACKAGES https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
+if [ $CHROME_DOWNLOAD_URL ]; then
+  download_url=$CHROME_DOWNLOAD_URL
+else
+  download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
+fi
+
+PACKAGES="$PACKAGES ${download_url}"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
