@@ -107,16 +107,15 @@ if [ ! -f $CACHE_DIR/PURGED_CACHE_V1 ]; then
 fi
 
 # Detect requested channel or default to stable
-# if [ -f $ENV_DIR/CHROME_DOWNLOAD_URL ]; then
-#   download_url=$(cat $ENV_DIR/CHROME_DOWNLOAD_URL)
-#   topic "Installing Google Chrome from the $channel channel."
-# else
-#   download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
-# fi
+if [ -f $ENV_DIR/CHROME_DOWNLOAD_URL ]; then
+  download_url=$(cat $ENV_DIR/CHROME_DOWNLOAD_URL)
+  topic "Installing Google Chrome from the $channel channel."
+else
+  download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
+  topic "Installing Google Chrome from: ${download_url}"
+fi
 
-# topic "Chrome download will come from: ${download_url}"
-
-# PACKAGES="$PACKAGES ${download_url}"
+PACKAGES="$PACKAGES ${download_url}"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
@@ -145,8 +144,12 @@ done
 mkdir -p $BUILD_DIR/.apt
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  topic "Installing $(basename $DEB)"
-  dpkg -x $DEB $BUILD_DIR/.apt/
+  if [[ ${DEB} == *"chrome-stable"* ]]; then
+    topic "* Skipping $(basename $DEB) because we already are installing specific version"
+  else
+    topic "Installing $(basename $DEB)"
+    dpkg -x $DEB $BUILD_DIR/.apt/
+  fi
 done
 
 topic "Writing profile script"
