@@ -106,18 +106,17 @@ if [ ! -f $CACHE_DIR/PURGED_CACHE_V1 ]; then
   touch $CACHE_DIR/PURGED_CACHE_V1
 fi
 
-topic "Installing Google Chrome from the $channel channel."
-
 # Detect requested channel or default to stable
-if [ -f $ENV_DIR/CHROME_DOWNLOAD_URL ]; then
-  download_url=$(cat $ENV_DIR/CHROME_DOWNLOAD_URL)
-else
-  download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
-fi
+# if [ -f $ENV_DIR/CHROME_DOWNLOAD_URL ]; then
+#   download_url=$(cat $ENV_DIR/CHROME_DOWNLOAD_URL)
+#   topic "Installing Google Chrome from the $channel channel."
+# else
+#   download_url="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb"
+# fi
 
-topic "Chrome download will come from: ${download_url}"
+# topic "Chrome download will come from: ${download_url}"
 
-PACKAGES="$PACKAGES ${download_url}"
+# PACKAGES="$PACKAGES ${download_url}"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
